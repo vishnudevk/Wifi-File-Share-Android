@@ -1,12 +1,10 @@
 package com.wifishare;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import com.wifi.logic.tasks.WifiStatusPoller;
-import com.wifi.logic.utils.UDP.ClientListner;
 
 import android.os.Bundle;
 import android.app.ActionBar.LayoutParams;
