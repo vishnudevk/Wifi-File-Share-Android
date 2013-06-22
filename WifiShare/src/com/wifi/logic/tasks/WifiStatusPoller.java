@@ -2,18 +2,15 @@ package com.wifi.logic.tasks;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import com.receivers.WifiReceiver;
 import com.wifi.logic.utils.WifiUtils;
-import com.wifi.logic.utils.UDP.ClientListner;
 import com.wifi.logic.utils.UDP.MulticastServer;
 import com.wifishare.MainActivity;
 
 import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /*
  * This class check user is connected to wifi or not and update the textview provided

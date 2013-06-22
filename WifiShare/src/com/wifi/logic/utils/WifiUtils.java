@@ -1,9 +1,6 @@
 package com.wifi.logic.utils;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.net.Inet4Address;
-import java.net.Inet6Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -13,7 +10,6 @@ import com.wifishare.MainActivity;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
-import android.net.wifi.WifiManager;
 import android.util.Log;
 
 /**
@@ -37,7 +33,13 @@ public class WifiUtils {
 
 	}
 	
-	//method returns if hotspot is ative
+	
+	/**
+	 * These two methods are not working but kept for referance
+	 * 
+	 * app still doesnt work with wifi hotspot	 
+	 * */
+/*	//method returns if hotspot is ative
 	public static boolean isWifiApEnabled(Context context){ 
         boolean isWifiAPEnabled = false;        
         WifiManager wifi = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -70,7 +72,7 @@ public class WifiUtils {
 		} catch (Exception e) {
 			return false;
 		}
-	}
+	}*/
 
 	public static String getipAddress() { 
         try {

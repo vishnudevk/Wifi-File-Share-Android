@@ -1,7 +1,6 @@
 package com.receivers;
 
 import com.wifi.logic.utils.UDP.ClientListner;
-import com.wifishare.MainActivity;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
