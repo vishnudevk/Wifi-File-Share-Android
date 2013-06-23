@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
@@ -77,8 +78,11 @@ public class MainActivity extends Activity {
 	        client.setOnClickListener(new View.OnClickListener() {
 
 	            @Override
-	            public void onClick(View arg0) {
-	                System.out.println("clicked");
+	            public void onClick(View clientButton) {
+	                TextView textViewClientIP =  (TextView)clientButton;
+	                String IP = textViewClientIP.getText().toString();
+	                Toast.makeText(context, "Connecting to the IP "+IP ,
+	        				Toast.LENGTH_SHORT).show();
 	            }
 	        });
 	        layout.addView(client);	
