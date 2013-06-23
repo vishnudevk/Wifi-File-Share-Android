@@ -69,12 +69,19 @@ public class MainActivity extends Activity {
 		Iterator<String> itr = clients.iterator();
 		while(itr.hasNext())
 		{
-			TextView titleView = new TextView(activity);
+			TextView client = new TextView(activity);
 	        LayoutParams lparams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-	        titleView.setLayoutParams(lparams);
-	        titleView.setTextAppearance(activity, android.R.attr.textAppearanceLarge);
-	        titleView.setText(itr.next());
-	        layout.addView(titleView);	
+	        client.setLayoutParams(lparams);
+	        client.setTextAppearance(activity, android.R.attr.textAppearanceLarge);
+	        client.setText(itr.next());
+	        client.setOnClickListener(new View.OnClickListener() {
+
+	            @Override
+	            public void onClick(View arg0) {
+	                System.out.println("clicked");
+	            }
+	        });
+	        layout.addView(client);	
 		}
 		
 	}
