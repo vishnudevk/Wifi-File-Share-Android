@@ -13,7 +13,7 @@ import android.os.AsyncTask;
  */
 public class Multicast extends AsyncTask<String, Integer , List<String> >{
 
-	//TODO its not used
+	//TODO its not used to be removed
 	@Override
 	protected List<String> doInBackground(String... params) {
 		return MulticastServer.getAvaialableClients();
