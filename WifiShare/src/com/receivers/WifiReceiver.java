@@ -36,6 +36,9 @@ public class WifiReceiver extends BroadcastReceiver {
 				isWifi=false;
 			}
 		}
+		/**
+		 * This methd canbe called from outside to  start listener
+		 */
 		public static void runListener(){
 			isWifi=true;
 			if(thread==null)thread = new Thread(new ClientListner());
