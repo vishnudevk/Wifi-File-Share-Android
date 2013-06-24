@@ -78,7 +78,7 @@ public class MainActivity extends Activity {
 	        client.setLayoutParams(lparams);
 	        client.setTextAppearance(activity, android.R.attr.textAppearanceLarge);
 	        client.setTextColor(Color.WHITE);
-	        client.setTextSize(getResources().getDimension(R.dimen.InformationTextSize));
+	        client.setTextSize(getResources().getDimension(R.dimen.clientListSize));
 	        client.setText(itr.next());
 	        client.setOnClickListener(new View.OnClickListener() {
 
@@ -96,10 +96,6 @@ public class MainActivity extends Activity {
 	        				context,
 	        				FileBrowserActivity.class
 	        				);
-//	        		fileExploreIntent.putExtra(
-//	        				ua.com.vassiliev.androidfilebrowser.FileBrowserActivity.startDirectoryParameter, 
-//	        				"/sdcard"
-//	        				);
 	        		startActivityForResult(fileExploreIntent,2);//2 is for select file option
 	                
 	            }
