@@ -2,7 +2,6 @@ package com.wifishare;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 import ua.com.vassiliev.androidfilebrowser.FileBrowserActivity;
 
@@ -13,6 +12,7 @@ import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -25,12 +25,8 @@ public class MainActivity extends Activity {
 
 	private TextView connectionStatusIndicator = null;
 	private static Context context;
-	private static List<String> availableClents;
 	private static MainActivity activity;
 
-	private final static int REQUEST_CODE_PICK_DIR = 1;
-	private final static int REQUEST_CODE_PICK_FILE = 2;
-	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -45,15 +41,7 @@ public class MainActivity extends Activity {
 		button.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				System.out.println("mainActiviy : button clicked");
-				try {
-					availableClents = new WifiStatusPoller().execute(connectionStatusIndicator).get();
-					setClientList(availableClents, activity);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				} catch (ExecutionException e) {
-					e.printStackTrace();
-				}
+				new WifiStatusPoller().execute(connectionStatusIndicator);
 			}
 		});
 	}
@@ -68,8 +56,16 @@ public class MainActivity extends Activity {
 	public static Context getContext() {
 		return context;
 	}
+	
+	/**
+	 * can be used to get instance of main activity to make UI changes form async tasks
+	 * @return
+	 */
+	public static MainActivity getInstance(){
+		return activity;
+	}
 
-	private void setClientList(List<String> clients,MainActivity activity){
+	public void setClientList(List<String> clients){
 		
 		LinearLayout layout = (LinearLayout) activity
 				.findViewById(R.id.clientList);
@@ -81,6 +77,8 @@ public class MainActivity extends Activity {
 	        LayoutParams lparams = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 	        client.setLayoutParams(lparams);
 	        client.setTextAppearance(activity, android.R.attr.textAppearanceLarge);
+	        client.setTextColor(Color.WHITE);
+	        client.setTextSize(getResources().getDimension(R.dimen.InformationTextSize));
 	        client.setText(itr.next());
 	        client.setOnClickListener(new View.OnClickListener() {
 
@@ -102,10 +100,7 @@ public class MainActivity extends Activity {
 //	        				ua.com.vassiliev.androidfilebrowser.FileBrowserActivity.startDirectoryParameter, 
 //	        				"/sdcard"
 //	        				);
-	        		startActivityForResult(
-	        				fileExploreIntent,
-	        				REQUEST_CODE_PICK_FILE
-	        				);
+	        		startActivityForResult(fileExploreIntent,2);//2 is for select file option
 	                
 	            }
 	        });

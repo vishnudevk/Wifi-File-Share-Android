@@ -34,17 +34,14 @@ public class WifiStatusPoller extends AsyncTask<Object, Integer , List<String>> 
 		List<String> clientList = new  ArrayList<String>();
 		if(WifiUtils.isWifiConnected())
 		{ 
-			//connectionStatusIndicator.setText(context.getString(com.wifishare.R.string.wifi_status_connected));
 			WifiReceiver.runListener();
 			wifiStatus = context.getString(com.wifishare.R.string.wifi_status_connected) ;
 			try {
-			//	clientList = new Multicast().execute("").get();
 				clientList = MulticastServer.getAvaialableClients();
 			} catch (Exception e) {System.err.println(e);}
 		}
 		else
 		{
-			//connectionStatusIndicator.setText(context.getString(com.wifishare.R.string.wifi_status_not_connected));
 			wifiStatus = context.getString(com.wifishare.R.string.wifi_status_not_connected) ;
 		}
 		return clientList;
@@ -55,6 +52,7 @@ public class WifiStatusPoller extends AsyncTask<Object, Integer , List<String>> 
 	    protected void onPostExecute(List<String> result)
 	{
 		 connectionStatusIndicator.setText(wifiStatus);
+		 MainActivity.getInstance().setClientList(result);
 	}
 
 }
