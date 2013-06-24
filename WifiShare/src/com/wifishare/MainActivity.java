@@ -4,12 +4,16 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import ua.com.vassiliev.androidfilebrowser.FileBrowserActivity;
+
 import com.wifi.logic.tasks.WifiStatusPoller;
 
 import android.os.Bundle;
 import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageButton;
@@ -24,6 +28,9 @@ public class MainActivity extends Activity {
 	private static List<String> availableClents;
 	private static MainActivity activity;
 
+	private final static int REQUEST_CODE_PICK_DIR = 1;
+	private final static int REQUEST_CODE_PICK_FILE = 2;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -62,7 +69,7 @@ public class MainActivity extends Activity {
 		return context;
 	}
 
-	private static void setClientList(List<String> clients,MainActivity activity){
+	private void setClientList(List<String> clients,MainActivity activity){
 		
 		LinearLayout layout = (LinearLayout) activity
 				.findViewById(R.id.clientList);
@@ -83,6 +90,23 @@ public class MainActivity extends Activity {
 	                String IP = textViewClientIP.getText().toString();
 	                Toast.makeText(context, "Connecting to the IP "+IP ,
 	        				Toast.LENGTH_SHORT).show();
+	                
+	                Log.d("MainActivity", "StartFileBrowser4File button pressed");
+	    			Intent fileExploreIntent = new Intent(
+	    					FileBrowserActivity.INTENT_ACTION_SELECT_FILE,
+	        				null,
+	        				context,
+	        				FileBrowserActivity.class
+	        				);
+//	        		fileExploreIntent.putExtra(
+//	        				ua.com.vassiliev.androidfilebrowser.FileBrowserActivity.startDirectoryParameter, 
+//	        				"/sdcard"
+//	        				);
+	        		startActivityForResult(
+	        				fileExploreIntent,
+	        				REQUEST_CODE_PICK_FILE
+	        				);
+	                
 	            }
 	        });
 	        layout.addView(client);	

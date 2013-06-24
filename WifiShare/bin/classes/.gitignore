@@ -1,2 +1,6 @@
 /com
 /.gitignore
+/FileBrowserActivity$Item.class
+/FileBrowserActivity$ItemFileNameComparator.class
+/FileBrowserActivity.class
+/ua
