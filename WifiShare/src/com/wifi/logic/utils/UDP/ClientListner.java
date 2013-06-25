@@ -7,17 +7,20 @@ import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.SocketTimeoutException;
 
+import android.util.Log;
+
 import com.receivers.WifiReceiver;
 import com.wifi.logic.utils.Constants;
 import com.wifi.logic.utils.WifiUtils;
 
 public class ClientListner implements Runnable {
-
+	
+	private static String loggerTag="ClientListner";
 	@Override
 	public void run() {
 
 		DatagramSocket socket;
-		int clientListnport = Constants.clientListnPort;
+		int clientListnport = Constants.UDPPort;
 
 		try {
 			// Keep a socket open to listen to all the UDP trafic that is
@@ -35,18 +38,15 @@ public class ClientListner implements Runnable {
 				DatagramPacket packet = new DatagramPacket(recvBuf,
 						recvBuf.length);
 				try {
-					socket.receive(packet);
+					 socket.receive(packet);
 					
 					// Packet received
 					System.out.println(">>>Discovery packet received from: "
 							+ packet.getAddress().getHostAddress());
-					System.out.println(">>>Packet received; data: "
-							+ new String(packet.getData()));
 					// See if the packet holds the right command (message)
 					String message = new String(packet.getData()).trim();
-					if (message.equals("DISCOVER_FUIFSERVER_REQUEST")) {
-						byte[] sendData = "DISCOVER_FUIFSERVER_RESPONSE"
-								.getBytes();
+					if (message.equals(Constants.serverDiscoverString)) {
+						byte[] sendData = Constants.clientReplyString.getBytes();
 						// Send a response
 						
 						if(!WifiUtils.getipAddress().equalsIgnoreCase(packet.getAddress().getHostAddress().toString())){
@@ -59,7 +59,18 @@ public class ClientListner implements Runnable {
 									+ sendPacket.getAddress().getHostAddress());
 	
 						}
-											}
+					}
+					else if(message.equals(Constants.serverFileSending))
+					{
+						System.out.println("sending reply to recive handshake");
+						byte[] sendData = Constants.clientFileReceive.getBytes();
+						DatagramPacket sendPacket = new DatagramPacket(
+								sendData, sendData.length, packet.getAddress(),
+								packet.getPort());
+						socket.send(sendPacket);
+						Log.d(loggerTag, "File is reciving");
+						
+					}
 				} catch (SocketTimeoutException e) {
 					// no need of doing anything
 				}

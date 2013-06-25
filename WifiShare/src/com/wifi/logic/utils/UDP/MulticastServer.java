@@ -32,14 +32,14 @@ public class MulticastServer {
 		
 		DatagramSocket socket = null ;
 		List<String> clientList=new ArrayList<String>();
-		int clientPort =Constants.clientListnPort;
+		int clientPort =Constants.UDPPort;
 		// Find the server using UDP broadcast
 		try {
 		  //Open a random port to send the package
 		  socket = new DatagramSocket();
 		  socket.setBroadcast(true);
 
-		  byte[] sendData = "DISCOVER_FUIFSERVER_REQUEST".getBytes();
+		  byte[] sendData = Constants.serverDiscoverString.getBytes();
 
 		  //Try the 255.255.255.255 first
 		  try {
@@ -90,10 +90,11 @@ public class MulticastServer {
 	
 			  //Check if the message is correct
 			  String message = new String(receivePacket.getData()).trim();
-			  if (message.equals("DISCOVER_FUIFSERVER_RESPONSE")) {
-			    //DO SOMETHING WITH THE SERVER'S IP (for example, store it in your controller)
-				  System.out.println("cliet address"+receivePacket.getAddress());
-				  clientList.add(receivePacket.getAddress().toString());
+			  if (message.equals(Constants.clientReplyString)) {
+				  System.out.println("client address"+receivePacket.getAddress());
+				  String IP =receivePacket.getAddress().toString();
+				  IP= IP.substring(1, IP.length());
+				  clientList.add(IP);
 			  }
 		  }
 		  catch (SocketTimeoutException e) 
