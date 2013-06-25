@@ -5,6 +5,7 @@ import java.util.List;
 
 import ua.com.vassiliev.androidfilebrowser.FileBrowserActivity;
 
+import com.wifi.logic.tasks.TcpFileSender;
 import com.wifi.logic.tasks.WifiStatusPoller;
 
 import android.os.Bundle;
@@ -26,6 +27,7 @@ public class MainActivity extends Activity {
 	private TextView connectionStatusIndicator = null;
 	private static Context context;
 	private static MainActivity activity;
+	private String targetIP;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +53,19 @@ public class MainActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
+	}
+	
+	/**
+	 * This methode is called after user selected a file.
+	 */
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data){
+		String selectedFile = data.getStringExtra(FileBrowserActivity.returnFileParameter);
+		 Toast.makeText(context, "Sending file"+selectedFile ,
+ 				Toast.LENGTH_SHORT).show();
+		Toast.makeText(context, "connecting to IP "+ targetIP ,
+				Toast.LENGTH_SHORT).show();
+		new TcpFileSender().execute(targetIP,selectedFile);
 	}
 
 	public static Context getContext() {
@@ -85,8 +100,9 @@ public class MainActivity extends Activity {
 	            @Override
 	            public void onClick(View clientButton) {
 	                TextView textViewClientIP =  (TextView)clientButton;
-	                String IP = textViewClientIP.getText().toString();
-	                Toast.makeText(context, "Connecting to the IP "+IP ,
+	                targetIP= textViewClientIP.getText().toString();
+	                
+	                Toast.makeText(context, "Choose file to share" ,
 	        				Toast.LENGTH_SHORT).show();
 	                
 	                Log.d("MainActivity", "StartFileBrowser4File button pressed");
@@ -97,7 +113,7 @@ public class MainActivity extends Activity {
 	        				FileBrowserActivity.class
 	        				);
 	        		startActivityForResult(fileExploreIntent,2);//2 is for select file option
-	                
+	        		//System.out.println("returedd after the screen" +getIntent().getStringExtra("returnFileParameter"));
 	            }
 	        });
 	        layout.addView(client);	
