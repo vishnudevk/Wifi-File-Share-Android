@@ -12,6 +12,7 @@ import android.util.Log;
 import com.receivers.WifiReceiver;
 import com.wifi.logic.utils.Constants;
 import com.wifi.logic.utils.WifiUtils;
+import com.wifi.logic.utils.TCP.FileReceiver;
 
 public class ClientListner implements Runnable {
 	
@@ -68,7 +69,8 @@ public class ClientListner implements Runnable {
 								sendData, sendData.length, packet.getAddress(),
 								packet.getPort());
 						socket.send(sendPacket);
-						Log.d(loggerTag, "File is reciving");
+						Log.d(loggerTag, "handshaking is done");
+						FileReceiver.waitConnection();
 						
 					}
 				} catch (SocketTimeoutException e) {

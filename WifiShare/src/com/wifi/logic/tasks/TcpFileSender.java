@@ -8,6 +8,8 @@ import java.net.SocketTimeoutException;
 import java.util.logging.Logger;
 
 import com.wifi.logic.utils.Constants;
+import com.wifi.logic.utils.TCP.FileReceiver;
+import com.wifi.logic.utils.TCP.FileSender;
 
 import android.os.AsyncTask;
 import android.util.Log;
@@ -31,6 +33,7 @@ public class TcpFileSender extends AsyncTask<String, Void, Void>{
 		 ///First send a UDP packet saying we are going to send a file.
 		if(sendUDPHandshake(IP).equalsIgnoreCase("SUCCESS")){
 			System.out.println("file is going to send");
+			FileSender.sendFile(IP, fileName);
 		}
 		 
 		return null;
