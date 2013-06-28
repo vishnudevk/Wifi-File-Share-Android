@@ -214,6 +214,7 @@ public class FileBrowserActivity extends Activity {
 	private void initializeFileListView() {
 		ListView lView = (ListView) this.findViewById(R.id.fileListView);
 		lView.setBackgroundColor(Color.LTGRAY);
+		@SuppressWarnings("deprecation")
 		LinearLayout.LayoutParams lParam = new LinearLayout.LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT);
 		lParam.setMargins(15, 5, 15, 5);
@@ -366,7 +367,6 @@ public class FileBrowserActivity extends Activity {
 	private class Item {
 		public String file;
 		public int icon;
-		public boolean canRead;
 
 		public Item(String file, Integer icon, boolean canRead) {
 			this.file = file;

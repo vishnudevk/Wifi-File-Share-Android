@@ -1,7 +1,5 @@
 package com.wifi.logic.utils;
 
-import java.security.acl.LastOwnerException;
-
 public class StringUtil {
 
 	/**

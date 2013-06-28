@@ -4,11 +4,9 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.sql.Connection;
 
 import android.os.Environment;
 import android.util.Log;
@@ -38,7 +36,7 @@ public class FileReceiver{
 			listenSocket.setSoTimeout(3000);
 			///while(true) { 
 				Socket clientSocket = listenSocket.accept(); 
-				FileReceiver c = new FileReceiver(clientSocket); 
+				new FileReceiver(clientSocket); 
 			//} 
 			} 
 		catch(Exception e) {Log.d(loggerTag, "TCP time out. No server connection"+e.toString());} 
@@ -54,7 +52,6 @@ public class FileReceiver{
 	}
 
 	public void reciveFile() throws EOFException, IOException {
-		FileOutputStream fos = null;
 		try{
 				input = new DataInputStream( clientSocket.getInputStream());
 				output =new DataOutputStream( clientSocket.getOutputStream()); 
@@ -77,7 +74,6 @@ public class FileReceiver{
 						//input.read( rFile );
 						 FileProcess.makeFile(file.getAbsolutePath(), rFile);
 				
-				
 				Log.d(loggerTag, "file success fully recived");
 				} 
 			catch (Exception e) {
@@ -85,7 +81,7 @@ public class FileReceiver{
 			}
 			finally { 
 			  try { 
-				  	fos.close();
+				  	
 				  	output.close();
 		            input.close();
 				  clientSocket.close();

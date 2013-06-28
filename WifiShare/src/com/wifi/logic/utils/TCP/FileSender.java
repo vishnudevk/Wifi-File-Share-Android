@@ -3,8 +3,6 @@ package com.wifi.logic.utils.TCP;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FilePermission;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;

@@ -3,12 +3,9 @@ package com.wifi.logic.tasks;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
-import java.net.SocketException;
 import java.net.SocketTimeoutException;
-import java.util.logging.Logger;
 
 import com.wifi.logic.utils.Constants;
-import com.wifi.logic.utils.TCP.FileReceiver;
 import com.wifi.logic.utils.TCP.FileSender;
 
 import android.os.AsyncTask;
